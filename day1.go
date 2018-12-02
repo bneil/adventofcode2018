@@ -1,43 +1,20 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
+	"github.com/bneil/adventofcode2018/shared"
 	"strconv"
 )
-
-func check(e error) {
-	if e != nil {
-		panic(e)
-	}
-}
-
-func readLines(path string) ([]string, error) {
-	file, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-
-	var lines []string
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
-	return lines, scanner.Err()
-}
-
 
 // just iterate and see the final culmative answer
 func part1(){
 	ctr := 0
-	frequencies, err := readLines("day1input.txt")
-	check(err)
+	frequencies, err := shared.ReadLines("day1input.txt")
+	shared.Check(err)
 
 	for _, num := range frequencies {
 		i, err := strconv.Atoi(num)
-		check(err)
+		shared.Check(err)
 		ctr += i
 	}
 
@@ -53,14 +30,14 @@ func part2(){
 	seen = make(map[int]int)
 	found := false
 
-	frequencies, err := readLines("day1input.txt")
-	check(err)
+	frequencies, err := shared.ReadLines("day1input.txt")
+	shared.Check(err)
 
 	for found == false {
 		iteration += 1
 		for _, num := range frequencies {
 			next, err := strconv.Atoi(num)
-			check(err)
+			shared.Check(err)
 
 			frequency += next
 
