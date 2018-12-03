@@ -19,3 +19,17 @@ Lots of really neat strategies could be used to make this process more efficent 
 
 #### non rules
   - don't keep comparing already compared words
+
+## Day 3
+
+### Part 1:
+
+Create a fabric then allow areas to be claimed, each entry will enumerate with the number of claims on the given area. Then simply tally those which have 2 or more claims
+
+### Part 2:
+
+I thought of this one like dodgeball, you really only care about which position in the fabric is occupied. If a section is, you can eliminate both claims from the fabric since any conflict destroys each claim.
+Really not an efficient task, but I really liked how I messed up some of the golang string interpolation.
+
+- I was using a list to track the claims that were marked as erased, which was a terrible idea. Ended up with way to many entries and fell back to map
+- I was doing s := string(posX)+":"+string(posY) and the string conversion was failing - so thats took me some time to go back and correct.
