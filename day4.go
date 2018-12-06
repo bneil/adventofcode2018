@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/bneil/adventofcode2018/shared"
+	"sort"
 	"strings"
 	"time"
 )
@@ -13,18 +14,16 @@ type Entry struct {
 	state string
 }
 
-//
 func parseEntry(line string) Entry{
 	halfs := strings.Split(line, "]")
 
-	layout := "2006-02-01 00:60"
+	layout := "2006-01-02 15:04"
 	rawDate := strings.Split(halfs[0], "[")[1]
-	println(rawDate)
 	t, err := time.Parse(layout, rawDate)
 	shared.Check(err)
 	action := halfs[1]
 
-	if(strings.Contains(action, "being shift")){
+	if(strings.Contains(action, "begins shift")){
 		return Entry{
 			timestamp: t,
 			state: "working",
@@ -50,11 +49,18 @@ func day4_part1(){
 	lines, err := shared.ReadLines("test")
 	shared.Check(err)
 
+	var entries []Entry
 	for _, line := range lines {
 		entry := parseEntry(line)
 		fmt.Printf("%+v\n", entry)
-
+		entries = append(entries, entry)
 	}
+	sort.Slice(entries, func(i, j int) bool {
+		return entries[i].timestamp.Before(entries[j].timestamp)
+	})
+	//for entry := range entries {
+	//}
+
 }
 
 func day4_part2() {
